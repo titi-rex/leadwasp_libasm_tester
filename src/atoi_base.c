@@ -122,3 +122,9 @@ void	atoi_base_tester(void)
     atoi_base_wrapper("-24", "0123456789abcdef");
     printf("\n");
 }
+
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    atoi_base_tester();
+}

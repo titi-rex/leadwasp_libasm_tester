@@ -43,3 +43,9 @@ void    list_size_tester(void)
     list_size_wrapper(524);
     printf("\n");
 }
+
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    list_size_tester();
+}

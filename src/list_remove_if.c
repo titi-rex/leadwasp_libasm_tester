@@ -107,3 +107,9 @@ void    list_remove_if_tester(void)
     list_remove_if_wrapper((void*)5, _cmp_mod, _fake_free, 5);
     printf("\n");
 }
+
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    list_remove_if_tester();
+}

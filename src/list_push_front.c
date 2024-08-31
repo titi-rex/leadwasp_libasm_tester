@@ -53,3 +53,9 @@ void    list_push_front_tester(void)
     listclear(&list);
     printf("\n");
 }
+
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    list_push_front_tester();
+}

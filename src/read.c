@@ -45,3 +45,9 @@ void    read_tester(void)
     _read_wrapper("Makefile", 0);
     printf("\n");
 }
+
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    read_tester();
+}

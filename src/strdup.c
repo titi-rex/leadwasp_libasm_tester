@@ -32,3 +32,9 @@ void    strdup_tester(void)
     _strdup_wrapper("asd;a poadjw kkwd\n\n");
     printf("\n");
 }
+
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    strdup_tester();
+}

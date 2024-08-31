@@ -25,4 +25,9 @@ void    strcpy_tester(void)
     printf("\n");
 }
 
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    strcpy_tester();
+}
 

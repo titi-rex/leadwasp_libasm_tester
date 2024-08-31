@@ -111,3 +111,9 @@ void    list_sort_tester(void)
 
     printf("\n");
 }
+
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    list_sort_tester();
+}

@@ -71,3 +71,9 @@ void    write_tester(void)
     close(fds[0]);
     close(fds[1]);
 }
+
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    write_tester();
+}

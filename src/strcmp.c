@@ -26,3 +26,8 @@ void    strcmp_tester(void)
     printf("\n");
 }
 
+int main(void)
+{
+    signal(SIGSEGV, sigsegv_handler);
+    strcmp_tester();
+}
