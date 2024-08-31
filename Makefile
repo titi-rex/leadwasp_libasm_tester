@@ -4,16 +4,6 @@
 # @file
 # @version 0.2
 
-
-# alias -> script
-#  if gum -> gumscript
-#  else -> :(
-# script -> call make for build tester
-# script -> call tester with args
-# echo "alias leadwasp=\"make -s -C $(pwd) LIB_PATH=\\\$(pwd)\"" >> ~/.zshrc
-# echo "alias lw=\"make -s -C $(pwd) LIB_PATH=\\\$(pwd)\"" >> ~/.zshrc
-
-
 #	==============================	NAME	==============================	#
 LIB_PATH		=	../libasm
 LIB_NAME		=	libasm.a
@@ -70,17 +60,13 @@ BIN_BONUS		=	${addprefix ${DIR_BIN}, ${LST_BIN_BONUS}}
 #	==============================	BASE	==============================	#
 all:	m
 
-
 clean:
 	@rm -rf ${DIR_OBJ}
-	@echo "Clean"
 
 fclean:	clean
 	@rm -rf ${DIR_BIN}
-	@echo "FClean"
 
 re:		fclean all
-
 
 
 #	==============================	COMPILATION	==============================	#
@@ -92,11 +78,12 @@ b:	precomp ${BIN_BONUS}
 
 
 ${DIR_OBJ}%.o:	${DIR_SRC}%.c
-	${CC} ${IFLAG} ${CFLAG} ${DFLAGS} -c $< -o $@
+	@${CC} ${IFLAG} ${CFLAG} ${DFLAGS} -c $< -o $@
 
 ${DIR_BIN}%.out:	${DIR_OBJ}%.o ${LIBASM}
-	${CC} ${IFLAG} ${CFLAG} ${OBJ_UTILS} $< ${LIBASM} -o $@
-
+	@${CC} ${IFLAG} ${CFLAG} ${OBJ_UTILS} $< ${LIBASM} -o $@
+	@./$@
+	@rm $@
 
 -include ${DIR_OBJ}/*.dep
 
@@ -107,7 +94,5 @@ ${DIR_OBJ}:
 
 ${DIR_BIN}:
 	@mkdir ${DIR_BIN}
-
-
 
 # end
