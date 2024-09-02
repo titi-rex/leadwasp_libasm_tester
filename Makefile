@@ -58,7 +58,8 @@ BIN_BONUS		=	${addprefix ${DIR_BIN}, ${LST_BIN_BONUS}}
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	RULES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
 .PHONY: all clean fclean
 #	==============================	BASE	==============================	#
-all:	m
+a:	all
+all:	mandatory bonus
 
 clean:
 	@rm -rf ${DIR_OBJ}
@@ -72,11 +73,12 @@ re:		fclean all
 #	==============================	COMPILATION	==============================	#
 precomp:	${DIR_BIN} ${DIR_OBJ} ${OBJ_UTILS} ${OBJ} ${OBJ_BONUS}
 
-a:	m b
 
-m:	precomp ${BIN}
+m:	mandatory
+mandatory:	precomp ${BIN}
 
-b:	precomp ${BIN_BONUS}
+b:	bonus
+bonus:	precomp ${BIN_BONUS}
 
 ${DIR_OBJ}%.o:	${DIR_SRC}%.c
 	${CC} ${IFLAG} ${CFLAG} ${DFLAGS} -c $< -o $@

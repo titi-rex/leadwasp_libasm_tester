@@ -1,6 +1,0 @@
-add install script
-
-remake exe output
-add verbose flags to exe
-
-add gum
