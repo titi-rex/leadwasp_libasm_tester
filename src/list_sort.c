@@ -1,5 +1,7 @@
 #include "test.h"
 
+int g_verbose   = 0;
+
 int _cmp_int(void* a, void* b)
 {
     return ((uint64_t)a > (uint64_t)b);
@@ -10,39 +12,6 @@ int _cmp_str(void* a, void* b)
     return (strcmp(a, b) > 0);
 }
 
-/*
-Create the function ft_list_sort which sorts the list’s elements by ascending order
-by comparing two elements by comparing their data with a function
-Function pointed by cmp will be used as follows :    (*cmp)(list_ptr->data, list_other_ptr->data);
-cmp could be for instance ft_strcmp.
-*/
-void    list_sort(t_list **begin_list, int (*cmp)())
-{
-    if (!begin_list || !*begin_list || !cmp)
-        return ;
-
-    t_list* current = *begin_list;
-    while (current->next)
-    {
-        if ((*cmp)(current->data, current->next->data))
-        {
-            void*   tmp = current->data;
-            t_list* next = current->next;
-            current->data = next->data;
-            next->data = tmp;
-            list_sort(begin_list, cmp);
-        }
-        current = current->next;
-    }
-}
-
-/**
- * @brief check if list is sorted using cmp
- * 
- * @param head 
- * @param cmp function to use for test
- * @return int 
- */
 int list_sorted(t_list* head, int (*cmp)())
 {
     while(head && head->next)
@@ -54,47 +23,32 @@ int list_sorted(t_list* head, int (*cmp)())
     return (0);
 }
 
+void    _list_sort_tester_uint(uint64_t len)
+{
+    static int  i = 1;
+    printf("%d.", i++);
+
+    t_list      *lst = NULL;
+
+    for(uint64_t i = 0; i < len; i++)
+    {
+        uint64_t r = rand();
+        list_push_front(&lst, (void*)r);
+    }
+    ft_list_sort(&lst, _cmp_int);
+    check("", list_sorted(lst, _cmp_int) == 0);
+    if (lst)
+        listclear(&lst);
+}
+
 
 void    list_sort_tester(void)
 {
-    t_list      *lst;
-    uint64_t    len;
-
     printf("list_sort:\t");
-    (void)len;
-
-    // test empty list
-    lst = NULL;
-    ft_list_sort(&lst, _cmp_int);
-    check(list_sorted(lst, _cmp_int) == 0);
-
-    // test odd list
-    lst = NULL;
-    len = 37;
-    for(uint64_t i = 0; i < len; i++)
-    {
-        uint64_t r =  i;
-        list_push_front(&lst, (void*)r);
-    }
-    ft_list_sort(&lst, _cmp_int);
-    check(list_sorted(lst, _cmp_int) == 0);
-    listclear(&lst);
-
-    // test even list
-    lst = NULL;
-    len = 52;
-    for(uint64_t i = 0; i < len; i++)
-    {
-        uint64_t r =  i;
-        list_push_front(&lst, (void*)r);
-    }
-    ft_list_sort(&lst, _cmp_int);
-    check(list_sorted(lst, _cmp_int) == 0);
-    listclear(&lst);
-
+    srand(time(NULL));
 
     // test string data list
-    lst = NULL;
+    t_list* lst = NULL;
     char*   s1 = "ssello";
     char*   s2 = "aaaa";
     char*   s3 = "hello";
@@ -104,16 +58,27 @@ void    list_sort_tester(void)
     list_push_front(&lst, s4);
     list_push_front(&lst, s1);
     ft_list_sort(&lst, _cmp_str);
-    check(list_sorted(lst, _cmp_str) == 0);
+    printf("0.");
+    check("", list_sorted(lst, _cmp_str) == 0);
     listclear(&lst);
     free(s4);
 
-
+    // test empty list
+    _list_sort_tester_uint(0);
+    // test odd list
+    _list_sort_tester_uint(1);
+    // test odd list
+    _list_sort_tester_uint(37);
+    // test odd list
+    _list_sort_tester_uint(52);
     printf("\n");
 }
 
-int main(void)
+int main(int ac, char** arg)
 {
+    (void)arg;
+    if (ac != 1 )
+        g_verbose = 1;
     signal(SIGSEGV, sigsegv_handler);
     list_sort_tester();
 }

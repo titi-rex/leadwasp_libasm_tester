@@ -1,16 +1,7 @@
 #include "test.h"
 
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi_base.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tlegrand <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/14 17:31:10 by tlegrand          #+#    #+#             */
-/*   Updated: 2022/07/28 09:15:09 by tlegrand         ###   ########lyon.fr   */
-/*                                                                            */
-/* ************************************************************************** */
+int g_verbose   = 0;
+
 
 int	_check_base(char *base)
 {
@@ -77,10 +68,12 @@ int	atoi_base(char *str, char *base)
 
 void    atoi_base_wrapper(char* str, char* base)
 {
+    static int  i = 0;
+    printf("%d.", i++);
+
     int     exp = atoi_base(str, base);
     int     got = ft_atoi_base(str, base);
-    check(exp == got);
-    // printf("exp: %d, got %d. ", exp, got);
+    check("", exp == got);
 }
 
 void	atoi_base_tester(void)
@@ -123,8 +116,11 @@ void	atoi_base_tester(void)
     printf("\n");
 }
 
-int main(void)
+int main(int ac, char** arg)
 {
+    (void)arg;
+    if (ac != 1 )
+        g_verbose = 1;
     signal(SIGSEGV, sigsegv_handler);
     atoi_base_tester();
 }

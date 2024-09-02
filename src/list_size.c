@@ -1,26 +1,12 @@
 #include "test.h"
 
-
-/*
-Create the function ft_list_size which returns the number of elements in the
-list.
-*/
-int	list_size(t_list *begin_list)
-{
-	int	size;
-
-	size = 0;
-	while (begin_list)
-	{
-		size++;
-		begin_list = begin_list->next;
-	}
-	return (size);
-}
-
+int g_verbose   = 0;
 
 void    list_size_wrapper(int len)
 {
+    static int  i = 0;
+    printf("%d.", i++);
+
     t_list  *lst = NULL;
 
     for(int i = 0; i < len; i++)
@@ -29,8 +15,7 @@ void    list_size_wrapper(int len)
         list_push_front(&lst, (void*)r);
     }
     int res = ft_list_size(lst);
-    check(res == len);
-    // printf("exp: %d, got: %d\n", len, res);
+    check("", res == len);
     listclear(&lst);
 }
 
@@ -44,8 +29,11 @@ void    list_size_tester(void)
     printf("\n");
 }
 
-int main(void)
+int main(int ac, char** arg)
 {
+    (void)arg;
+    if (ac != 1 )
+        g_verbose = 1;
     signal(SIGSEGV, sigsegv_handler);
     list_size_tester();
 }

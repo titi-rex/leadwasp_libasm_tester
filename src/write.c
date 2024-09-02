@@ -1,8 +1,12 @@
 #include "test.h"
 
+int g_verbose   = 0;
 
 void _write_wrapper(int fds[2], const char * string, size_t len)
 {
+    static int  i = 0;
+    printf("%d.", i++);
+
     char    exp[len + 1];
     char    got[len + 1];
     int     errno_exp = 0;
@@ -26,11 +30,11 @@ void _write_wrapper(int fds[2], const char * string, size_t len)
     else
         read(fds[0], got, len);
 
-    check(l_exp == l_got);    
+    check("ret:", l_exp == l_got);    
     if ((l_exp == -1) || (l_got == -1))
-        check(errno_exp == errno_got);
+        check("errno:", errno_exp == errno_got);
     else
-        check(strcmp(exp, got) == 0);    
+        check("data:", strcmp(exp, got) == 0);    
 
 }
 
@@ -72,8 +76,11 @@ void    write_tester(void)
     close(fds[1]);
 }
 
-int main(void)
+int main(int ac, char** arg)
 {
+    (void)arg;
+    if (ac != 1 )
+        g_verbose = 1;
     signal(SIGSEGV, sigsegv_handler);
     write_tester();
 }

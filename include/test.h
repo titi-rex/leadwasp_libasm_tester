@@ -12,11 +12,13 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include <malloc.h>
+# include <time.h>
+
 
 # include "colors.h"
 # include "libasm.h"
 
-void    check(bool e);
+void    check(char* prefix, bool e);
 void    fatal(const char * str);
 void    sigsegv_handler(int sig);
 void    listclear(t_list **list);

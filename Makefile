@@ -73,17 +73,16 @@ re:		fclean all
 precomp:	${DIR_BIN} ${DIR_OBJ} ${OBJ_UTILS} ${OBJ} ${OBJ_BONUS}
 
 a:	m b
+
 m:	precomp ${BIN}
+
 b:	precomp ${BIN_BONUS}
 
-
 ${DIR_OBJ}%.o:	${DIR_SRC}%.c
-	@${CC} ${IFLAG} ${CFLAG} ${DFLAGS} -c $< -o $@
+	${CC} ${IFLAG} ${CFLAG} ${DFLAGS} -c $< -o $@
 
 ${DIR_BIN}%.out:	${DIR_OBJ}%.o ${LIBASM}
-	@${CC} ${IFLAG} ${CFLAG} ${OBJ_UTILS} $< ${LIBASM} -o $@
-	@./$@
-	@rm $@
+	${CC} ${IFLAG} ${CFLAG} ${OBJ_UTILS} $< ${LIBASM} -o $@
 
 -include ${DIR_OBJ}/*.dep
 
@@ -94,5 +93,7 @@ ${DIR_OBJ}:
 
 ${DIR_BIN}:
 	@mkdir ${DIR_BIN}
+
+${LIBASM}:
 
 # end

@@ -1,12 +1,16 @@
 #include "test.h"
 
+extern int g_verbose;
+
 // general
-void    check(bool e)
+void    check(char* prefix, bool e)
 {
+    if (g_verbose == 0)
+        prefix = "";
     if (e)
-        printf(GREEN"[OK] "END);
+        printf(GREEN"%sOK "END, prefix);
     else
-        printf(RED"[KO] "END);
+        printf(RED"%sKO "END, prefix);
 }
 
 void    fatal(const char * str)
@@ -18,7 +22,7 @@ void    fatal(const char * str)
 void    sigsegv_handler(int sig)
 {
     (void)sig;
-    printf(BOLD""RED"[SIGSEV]\n"END);
+    printf(BOLD""RED" [SIGSEV]\n"END);
     exit(1);
 }
 

@@ -1,5 +1,6 @@
 #include "test.h"
 
+int g_verbose   = 0;
 int g_ff_access = 0;
 
 void   _fake_free(void* a)
@@ -22,52 +23,6 @@ int _cmp_mod(void* a, void* b)
     return (1);
 }
 
-/*
-Create the function ft_list_remove_if which removes from the list,
- all elements
-whose data compared to data_ref using cmp, makes cmp return 0.
-• The data from an element to be erased should be freed using 
-free_fc
-Function pointed by cmp and by free_fct will be used as follows :
-    (*cmp)(list_ptr->data, data_ref);
-    (*free_fct)(list_ptr->data);
-*/
-void    list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *))
-{
-    t_list* current = NULL;
-    t_list* parent  = *begin_list;
-
-    while (parent)
-    {
-        if ((*cmp)(parent->data, data_ref) == 0)
-        {
-            *begin_list = parent->next;
-            (*free_fct)(parent->data);
-            free(parent);
-            parent = *begin_list;
-        }
-        else
-        {
-            current = parent->next;
-            break ;
-        }
-    }
-
-    while (current)
-    {
-        if ((*cmp)(current->data, data_ref) == 0)
-        {
-            parent->next = current->next;
-            (*free_fct)(current->data);
-            free(current);
-        }
-        else
-            parent = current;
-        current = parent->next;
-    }
-}
-
-
 int    list_check_if(t_list *head, void *data_ref, int (*cmp)())
 {
     while(head)
@@ -81,19 +36,19 @@ int    list_check_if(t_list *head, void *data_ref, int (*cmp)())
 
 void    list_remove_if_wrapper(void* data_ref, int (*cmp)(), void (*free_fct)(void *), int expected_ff)
 {
+    static int  i = 0;
     t_list  *lst = NULL;
+
+    printf("%d.", i++);
 
     g_ff_access = 0;
     for(uint64_t i = 0; i < 21; i++)
     {
         list_push_front(&lst, (void*)i);
     }
-    // printf("\n");
-    // list_print(lst);
     ft_list_remove_if(&lst, data_ref, cmp, free_fct);
-    // list_print(lst);
-    check(list_check_if(lst, data_ref, cmp) == 0);
-    check(g_ff_access == expected_ff);
+    check("removed:", list_check_if(lst, data_ref, cmp) == 0);
+    check("free_fct call:", g_ff_access == expected_ff);
     listclear(&lst);
 }
 
@@ -108,8 +63,11 @@ void    list_remove_if_tester(void)
     printf("\n");
 }
 
-int main(void)
+int main(int ac, char** arg)
 {
+    (void)arg;
+    if (ac != 1 )
+        g_verbose = 1;
     signal(SIGSEGV, sigsegv_handler);
     list_remove_if_tester();
 }

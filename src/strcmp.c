@@ -1,10 +1,16 @@
 #include "test.h"
 
+int g_verbose   = 0;
+
+
 void _strcmp_wrapper(const char * a, const char * b)
 {
+    static int  i = 0;
+    printf("%d.", i++);
+
     int exp = strcmp(a, b);
     int got = ft_strcmp(a, b);
-    check((exp == got) || (exp < 0 && got < 0) || (exp > 0 && got > 0));
+    check("ret:", (exp == got) || (exp < 0 && got < 0) || (exp > 0 && got > 0));
 }
 
 void    strcmp_tester(void)
@@ -26,8 +32,11 @@ void    strcmp_tester(void)
     printf("\n");
 }
 
-int main(void)
+int main(int ac, char** arg)
 {
+    (void)arg;
+    if (ac != 1 )
+        g_verbose = 1;
     signal(SIGSEGV, sigsegv_handler);
     strcmp_tester();
 }
