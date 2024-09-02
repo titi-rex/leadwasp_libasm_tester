@@ -20,7 +20,7 @@ You can clone the repo where you want, just make sure to set the good path in al
 ## Usage
 You are provided with two alias :  use `lw` inside your project repo or `leadwasp` with `-l path/to/libasm.a` 
 
-You can ask for `all`/`a``bonus`/`b` `mandatory`/`m` or specific function : 
+You can ask for `all`/`a` `bonus`/`b` `mandatory`/`m` or specific function : 
 ```bash
     lw mandatory
     lw -v a
