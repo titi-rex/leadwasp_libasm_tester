@@ -13,6 +13,16 @@ function test() {
     done
 }
 
+
+function greets () {
+    printf "\033[1;34m
+*~~~~~~~~~~~~~~~~~~~~~~*
+*       LeadWasp       *
+*     libasm tester    *
+*~~~~~~~~~~~~~~~~~~~~~~*
+    \033[0m"
+}
+
 function help () {
     echo "#==# LeadWasp, a libasm tester for 42 student #==#
 * use with 'lw' or 'leadwasp' alias
@@ -36,6 +46,7 @@ LIST_MANDATORY="strlen strcpy strcmp strdup read write"
 LIST_BONUS="atoi_base list_push_front list_size list_sort list_remove_if"
 DONE=0
 
+greets
 
 while getopts "vhkp:l:" arg; do
     case $arg in 
