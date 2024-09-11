@@ -1,14 +1,15 @@
 #include "libunit.h"
 #include "tests.h"
 
-int	main(void)
+int	main(int ac, char **argv)
 {
-	int	ret;
+	t_mifunc	ftab[N_LAUNCHER];
 
-	ret = 0;
-	ret += strlen_launcher();
-	ret += write_launcher();
-	if (ret < 0)
-		ret = -1;
+	ftab[0].name = "strlen";
+	ftab[0].f_ptr = &strlen_launcher;
+	ftab[1].name = "write";
+	ftab[1].f_ptr = &write_launcher;
+
+	test_start(ftab, N_LAUNCHER, ac, argv);
 	return (0);
 }

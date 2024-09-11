@@ -1,5 +1,0 @@
-add:
-	- verbose with opt -v ? (scenario de test, expextec, got)
-	- skip test by arg
-
-

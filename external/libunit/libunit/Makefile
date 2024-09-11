@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/04 21:12:50 by tlegrand          #+#    #+#              #
-#    Updated: 2024/09/08 14:43:09 by tlegrand         ###   ########.fr        #
+#    Updated: 2024/09/10 22:45:52 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,14 @@
 
 
 #	==============================	NAME	==============================	#
-NAME	=	libunit.a
+NAME		=	libunit.a
 
 #	==============================	CMP	==============================	#
 AR			=	ar
 ARFLAG		=	rcs
 
-CC			=	gcc 
-CFLAG		=	-Wall -Wextra -Werror -g3 
+CC			=	gcc
+CFLAG		=	-Wall -Wextra -Werror -g3
 DFLAG		=	-MMD -MP
 
 
@@ -36,7 +36,7 @@ IFLAG		=	-I ${DIR_INC}
 
 #	==============================	SRC	==============================	#
 SRC_DIR		=	src/
-SRC_LST		=	test_loader.c test_launcher.c
+SRC_LST		=	test_loader.c test_launcher.c test_starter.c
 SRC			=	${addprefix ${SRC_DIR}, ${SRC_LST}}
 
 

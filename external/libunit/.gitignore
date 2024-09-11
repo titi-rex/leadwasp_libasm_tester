@@ -1,3 +1,7 @@
+real-test
+build
+.vscode
+
 # Prerequisites
 *.d
 
