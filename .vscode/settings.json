@@ -1,8 +1,0 @@
-{
-	"editor.fontFamily": "Fira Code",
-	"editor.fontLigatures": true,
-	"files.associations": {
-		"libunit.h": "c",
-		"tests.h": "c"
-	}
-}

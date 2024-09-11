@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:55:43 by tlegrand          #+#    #+#             */
-/*   Updated: 2024/09/08 14:40:48 by tlegrand         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:03:57 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,16 @@
 # define FLAG_STDIN		0b00000001
 # define FLAG_TIMEOUT_L	0b00000010
 
-typedef int		(*t_launcher_func)(void);
 typedef int		(*t_test_func)(void);
 typedef void	(*t_verbose)(void);
+
+typedef struct s_meta_int_function
+{
+	char	*name;
+	int		(*f_ptr)();
+}	t_mifunc;
+
+
 
 typedef struct s_test
 {
@@ -47,5 +54,6 @@ typedef struct s_test
 
 void	test_loader(t_test **test_list, char *test_name, t_test_func function, uint8_t flags);
 int		test_launcher(t_test **test_list, const char *name);
+int		test_start(t_mifunc *ftab, size_t len, int ac, char **argv);
 
 #endif

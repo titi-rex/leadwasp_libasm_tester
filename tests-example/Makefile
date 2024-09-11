@@ -7,55 +7,55 @@
 
 #	==============================	NAME	==============================	#
 NAME		=	exampler.out
-DIR_LIBUNIT	=../libunit
+DIR_LIBUNIT	=	../libunit
+
 
 #	==============================	CMP	==============================	#
-CC			=	gcc 
-CFLAG		=	-Wall -Wextra -Werror -g3
+CC			=	gcc
+CFLAGS		=	-Wall -Wextra -Werror -g3
 DFLAG		=	-MMD -MP
 
 
 #	==============================	INCLUDE	==============================	#
-DIR_INC		=	inc/
-IFLAG		=	-I ${DIR_INC} -I ${DIR_LIBUNIT}/inc
+DIR_INC		=	inc/ ${DIR_LIBUNIT}/inc
+IFLAGS		=	$(DIR_INC:%=-I%)
 
 
 #	==============================	SRC	==============================	#
+SRC_DIRS		=	strlen write
+
 # STRLEN
 STRLEN_SRC_DIR	=	strlen/
-STRLEN_SRC_LST	=	00_launcher_strlen.c \
-					01_ok_short.c \
-					02_ok_long.c \
-					03_ko_bad_result.c \
-					04_ko_segv.c \
-					05_ko_buse.c \
-					06_ko_timeout.c 
-
-# STRLEN
-WRITE_SRC_DIR	=	write/
-WRITE_SRC_LST	=	00_launcher_write.c \
-					01_ok_short_string.c \
-					02_ok_short_string_ret.c \
-					03_ok_empty.c \
-					04_ko_bad_fd.c 
-
+STRLEN_SRC_LST	=	00.c 01.c 02.c 03.c 04.c 05.c 06.c
 STRLEN_SRC		=	${addprefix ${STRLEN_SRC_DIR}, ${STRLEN_SRC_LST}}
+
+# WRITE
+WRITE_SRC_DIR	=	write/
+WRITE_SRC_LST	=	00.c 01.c 02.c 03.c 04.c
 WRITE_SRC		=	${addprefix ${WRITE_SRC_DIR}, ${WRITE_SRC_LST}}
-SRC_MAIN		=	main.c
+
+SRC_ALL			=	main.c \
+					${STRLEN_SRC} \
+					${WRITE_SRC}
+
 
 #	==============================	OBJ	==============================	#
 OBJ_DIR		=	.obj/
-OBJ_LST		=	${SRC_MAIN:.c=.o} \
-				${STRLEN_SRC_LST:.c=.o} \
-				${WRITE_SRC_LST:.c=.o}
+OBJ_SUBDIR	=	${addprefix ${OBJ_DIR}, ${SRC_DIRS}}
+OBJ_TMP		=	${addprefix ${OBJ_DIR}, ${SRC_ALL}}
 
-OBJ			=	${addprefix ${OBJ_DIR}, ${OBJ_LST}}
+OBJ			=	${OBJ_TMP:.c=.o}
+DEPS		=	${OBJ:.o=.d}
 
-#	==============================	OBJ	==============================	#
+
+#	==============================	LIB	==============================	#
 LIBUNIT		=	${DIR_LIBUNIT}/libunit.a
+
+
 
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	RULES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
 .PHONY: all clean fclean
+
 #	==============================	BASE	==============================	#
 all: ${OBJ_DIR} ${NAME}
 
@@ -75,27 +75,20 @@ test:	${NAME}
 
 #	==============================	COMPILATION	==============================	#
 ${NAME}: ${LIBUNIT} ${OBJ_DIR} ${OBJ}
-	${CC} ${IFLAG} ${CFLAG} ${OBJ} ${LIBUNIT} -o $@
-
-
-${OBJ_DIR}%.o: ${STRLEN_SRC_DIR}%.c
-	${CC} ${IFLAG} ${CFLAG} ${DFLAG} -c $< -o $@
-
-${OBJ_DIR}%.o: ${WRITE_SRC_DIR}%.c
-	${CC} ${IFLAG} ${CFLAG} ${DFLAG} -c $< -o $@
+	${CC} ${IFLAGS} ${CFLAGS} ${OBJ} ${LIBUNIT} -o $@
 
 ${OBJ_DIR}%.o: %.c
-	${CC} ${IFLAG} ${CFLAG} ${DFLAG} -c $< -o $@
+	${CC} ${IFLAGS} ${CFLAGS} ${DFLAG} -c $< -o $@
 
 ${LIBUNIT}:
 	make -C ${DIR_LIBUNIT}
 
--include ${OBJ_DIR}/*.dep
+-include ${DEPS}
 
 
 #	==============================	UTILS	==============================	#
 ${OBJ_DIR}:
-	@mkdir ${OBJ_DIR}
+	@mkdir ${OBJ_DIR} ${OBJ_SUBDIR}
 
 
 # end

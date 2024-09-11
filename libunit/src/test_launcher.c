@@ -6,14 +6,16 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 14:41:29 by tlegrand          #+#    #+#             */
-/*   Updated: 2024/09/08 14:41:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:19:22 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libunit.h"
 #include "colors.h"
 
-void	test_clear(t_test *head)
+extern int	g_max_len_size;
+
+static void	test_clear(t_test *head)
 {
 	t_test	*next;
 
@@ -25,7 +27,7 @@ void	test_clear(t_test *head)
 	}
 }
 
-int	test_format_status_exit(t_test *test)
+static int	test_format_status_exit(t_test *test)
 {
 	char	*msg;
 	char	*color;
@@ -42,11 +44,11 @@ int	test_format_status_exit(t_test *test)
 		msg = "[INTERNAL ERROR]";
 	else
 		msg = "[malformed test]";
-	printf("\t%s> %s: %s\n"END, color, test->name, msg);
+	printf("\t%s> %-*s : %s\n"END, color, g_max_len_size, test->name, msg);
 	return (test->status);
 }
 
-int	test_format_status_signal(t_test *test)
+static int	test_format_status_signal(t_test *test)
 {
 	char	*msg;
 	char	*color;
@@ -65,15 +67,15 @@ int	test_format_status_signal(t_test *test)
 	else if (test->status == SIGALRM)
 	{
 		msg = "[TIMEOUT]";
-		color = BLUE_LIGHT;
+		color = BLUE;
 	}
 	else
 		msg = "[unhandled signal]";
-	printf("\t%s> %s: %s\n"END, color, test->name, msg);
+	printf("\t%s> %-*s : %s\n"END, color, g_max_len_size, test->name, msg);
 	return (-1);
 }
 
-void	testcpy(t_test *dst, t_test *src)
+static void	testcpy(t_test *dst, t_test *src)
 {
 	strcpy(dst->name, src->name);
 	dst->id = src->id;
@@ -84,7 +86,7 @@ void	testcpy(t_test *dst, t_test *src)
 	dst->next = src->next;
 }
 
-void	child(t_test **head, t_test *ref_test)
+static void	child(t_test **head, t_test *ref_test)
 {
 	int		ret;
 	int		fds[2];
@@ -108,7 +110,7 @@ void	child(t_test **head, t_test *ref_test)
 	exit(ret);
 }
 
-int	test_execute(t_test **head, t_test *test)
+static int	test_execute(t_test **head, t_test *test)
 {
 	int	pid;
 	int	wstatus;
@@ -135,26 +137,25 @@ int	test_execute(t_test **head, t_test *test)
 
 int	test_launcher(t_test **head, const char *name)
 {
-	int		res;
+	t_test	*current;
+	char	*color;
 	int		success;
 	int		total;
-	t_test	*current;
 
-	res = 0;
 	success = 0;
 	total = 0;
 	current = *head;
-	printf("%s: \n", name);
+	printf(GRAY_LIGHT"%s: \n"END, name);
 	while (current)
 	{
 		if (test_execute(head, current) == 0)
-			success++;
-		else
-			res = -1;
+			++success;
 		++total;
 		current = current->next;
 	}
-	printf("tests successful: %d/%d\n", success, total);
+	color = (total == success) ? GREEN_LIGHT: BOLD RED ;
+	printf("%stests successful: %d/%d\n"END, color, success, total);
 	test_clear(*head);
-	return (res);
+	g_max_len_size = 0;
+	return (-(total == success));
 }
