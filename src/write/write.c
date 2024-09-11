@@ -61,6 +61,7 @@ void    write_tester(void)
     const char* s4 = "";
     _write_wrapper(fds, s4, strlen(s4));
 
+// errno check
     const char* s5 = "nop";
     _write_wrapper(badfds, s5, strlen(s5));
     
