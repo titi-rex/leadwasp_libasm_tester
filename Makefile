@@ -1,101 +1,103 @@
 ##
-# libasm
+# leadwasp
 #
-# @file
+# @file makefile
 # @version 0.2
 
+
 #	==============================	NAME	==============================	#
-LIB_PATH		=	../libasm
-LIB_NAME		=	libasm.a
-LIBASM			=	${LIB_PATH}/${LIB_NAME}
+NAME		=	leadwasp.out
+DIR_LIBUNIT	=	external/libunit/libunit
 
 
 #	==============================	CMP	==============================	#
-CC			=	gcc 
-CFLAG		=	-Wall -Wextra -Werror -g3 #-fsanitize=address,leak,undefined 
-DFLAGS		=	-MMD -MP
+CC			=	gcc
+CFLAGS		=	-Wall -Wextra -Werror -g3
+DFLAG		=	-MMD -MP
+
 
 #	==============================	INCLUDE	==============================	#
-DIR_INC		=	include/
-IFLAG		=	-I ${DIR_INC}
+DIR_INC		=	inc/ ${DIR_LIBUNIT}/inc
+IFLAGS		=	$(DIR_INC:%=-I%)
 
 
 #	==============================	SRC	==============================	#
-DIR_SRC			=	src/
+SRC_DIR			=	src/
+SRC_SUBDIR_LST	=	strlen strcpy strcmp strdup write read atoi_base list_size list_sort list_remove_if list_push_front
+SRC_SUBDIR		=	${addprefix ${SRC_DIR}, ${SRC_SUBDIR_LST}}
 
-LST_SRC			=	strlen.c strcpy.c strcmp.c strdup.c write.c read.c 
-LST_UTILS		=	utils.c
-LST_SRC_BONUS	=	atoi_base.c list_push_front.c list_size.c list_sort.c list_remove_if.c 
+SRC_FILE		=	src.mk
+-include ${SRC_FILE}
 
-SRC				=	${addprefix ${DIR}, ${LST_SRC}}
-UTILS			=	${addprefix ${DIR}, ${LST_UTILS}}
-SRC_BONUS		=	${addprefix ${DIR}, ${LST_SRC_BONUS}}
+SRC_LST			=	main.c \
+					${STRLEN_SRC} ${STRCPY_SRC} ${STRCMP_SRC} ${STRDUP_SRC} #${WRITE_SRC} #${READ_SRC}
+SRC_BONUS_LST	=	${ATOI_BASE_SRC} ${LIST_SIZE_SRC} ${LIST_SORT_SRC} ${LIST_REMOVE_IF_SRC} ${LIST_PUSH_FRONT_SRC}
+
+SRC				= ${addprefix ${SRC_DIR}, ${SRC_LST}}
+SRC_BONUS		= ${addprefix ${SRC_DIR}, ${SRC_BONUS_LST}}
 
 
 #	==============================	OBJ	==============================	#
-DIR_OBJ			=	.obj/
+OBJ_DIR		=	.obj/
+OBJ_SUBDIR	=	${addprefix ${OBJ_DIR}, ${SRC_SUBDIR}}
 
-LST_OBJ			=	${LST_SRC:.c=.o}
-LST_OBJ_UTILS	=	${LST_UTILS:.c=.o}
-LST_OBJ_BONUS	=	${LST_SRC_BONUS:.c=.o}
+OBJ_TMP		=	${addprefix ${OBJ_DIR}, ${SRC}}
+OBJ			=	${OBJ_TMP:.c=.o}
 
-OBJ				=	${addprefix ${DIR_OBJ}, ${LST_OBJ}}
-OBJ_UTILS		=	${addprefix ${DIR_OBJ}, ${LST_OBJ_UTILS}}
-OBJ_BONUS		=	${addprefix ${DIR_OBJ}, ${LST_OBJ_BONUS}}
+DEPS		=	${OBJ:.o=.d}
 
 
-#	==============================	BIN	==============================	#
-DIR_BIN			=	bin/
-
-LST_BIN			=	${LST_OBJ:.o=.out}
-LST_BIN_BONUS	=	${LST_OBJ_BONUS:.o=.out}
-
-BIN				=	${addprefix ${DIR_BIN}, ${LST_BIN}}
-BIN_BONUS		=	${addprefix ${DIR_BIN}, ${LST_BIN_BONUS}}
+#	==============================	LIB	==============================	#
+LIBUNIT		=	${DIR_LIBUNIT}/libunit.a
+LIBASM		=	libasm.a
 
 
 
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	RULES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
 .PHONY: all clean fclean
+
 #	==============================	BASE	==============================	#
-a:	all
-all:	mandatory bonus
+all: ${NAME}
 
 clean:
-	@rm -rf ${DIR_OBJ}
+	@rm -rf ${OBJ_DIR}
+	@echo "Clean"
 
-fclean:	clean
-	@rm -rf ${DIR_BIN}
+fclean: clean
+	@rm -f ${NAME}
+	@echo "FClean"
 
-re:		fclean all
+re: fclean all
+
+test:	${NAME}
+	@./${NAME}
+
+# m:	mandatory
+# b:	bonus
+# a:	lla
+
+# mandatory:
+# bonus:
+# lla:
+
 
 
 #	==============================	COMPILATION	==============================	#
-precomp:	${DIR_BIN} ${DIR_OBJ} ${OBJ_UTILS} ${OBJ} ${OBJ_BONUS}
+${NAME}: ${LIBUNIT} ${OBJ_SUBDIR} ${OBJ}
+	${CC} ${IFLAGS} ${CFLAGS} ${OBJ} ${LIBUNIT} ${LIBASM} -o $@
 
+${OBJ_DIR}%.o: %.c 
+	${CC} ${IFLAGS} ${CFLAGS} ${DFLAG} -c $< -o $@
 
-m:	mandatory
-mandatory:	precomp ${BIN}
+${LIBUNIT}:
+	make -C ${DIR_LIBUNIT}
 
-b:	bonus
-bonus:	precomp ${BIN_BONUS}
-
-${DIR_OBJ}%.o:	${DIR_SRC}%.c
-	${CC} ${IFLAG} ${CFLAG} ${DFLAGS} -c $< -o $@
-
-${DIR_BIN}%.out:	${DIR_OBJ}%.o ${LIBASM}
-	${CC} ${IFLAG} ${CFLAG} ${OBJ_UTILS} $< ${LIBASM} -o $@
-
--include ${DIR_OBJ}/*.dep
+-include ${DEPS}
 
 
 #	==============================	UTILS	==============================	#
-${DIR_OBJ}:
-	@mkdir ${DIR_OBJ}
+${OBJ_SUBDIR}:
+	@mkdir -p ${OBJ_SUBDIR}
 
-${DIR_BIN}:
-	@mkdir ${DIR_BIN}
-
-${LIBASM}:
 
 # end
