@@ -2,8 +2,11 @@
 
 int	list_size_01(void)
 {
-	const char	*str = "";
-	if (ft_(str) == (str))
+	t_list	*list = NULL;
+
+	int res = ft_list_size(list);
+
+	if (res == 0)
 		return (0);
 	else
 		return (-1);

@@ -23,8 +23,5 @@ int	list_sort_04(void);
 int	list_sort_05(void);
 int	list_sort_06(void);
 int	list_sort_07(void);
-int	list_sort_08(void);
-int	list_sort_09(void);
-int	list_sort_10(void);
 
 #endif
