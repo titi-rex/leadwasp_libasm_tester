@@ -1,5 +1,4 @@
-#include "libunit.h"
-#include "tests.h"
+#include "_strdup.h"
 
 int	strdup_01(void)
 {

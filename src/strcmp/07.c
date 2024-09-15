@@ -1,5 +1,4 @@
-#include "libunit.h"
-#include "tests.h"
+#include "_strcmp.h"
 
 int	strcmp_07(void)
 {

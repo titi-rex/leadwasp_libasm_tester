@@ -1,5 +1,5 @@
 #include "libunit.h"
-#include "tests.h"
+#include "_strcpy.h"
 
 int	strcpy_00_launcher(void)
 {

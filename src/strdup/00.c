@@ -1,5 +1,5 @@
 #include "libunit.h"
-#include "tests.h"
+#include "_strdup.h"
 
 int	strdup_00_launcher(void)
 {

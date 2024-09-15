@@ -1,5 +1,4 @@
-#include "libunit.h"
-#include "tests.h"
+#include "_write.h"
 
 int	write_01(void)
 {

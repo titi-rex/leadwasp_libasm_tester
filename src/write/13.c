@@ -1,8 +1,8 @@
 #include "_write.h"
 
-int	write_05(void)
+int	write_13(void)
 {
-	const char	*str = "simple pipple riggle... !@#q32q3";
+	const char	*str = "";
 	size_t		len = strlen(str);
 	ssize_t		r_exp = write(1, str, len);
 	ssize_t		r_got = ft_write(1, str, len);

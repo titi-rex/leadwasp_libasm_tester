@@ -18,7 +18,8 @@ STRDUP_SRC		=	${addprefix ${STRDUP_SRC_DIR}, ${SRC_BASE_LIST}}
 
 # WRITE
 WRITE_SRC_DIR	=	write/
-WRITE_SRC		=	${addprefix ${WRITE_SRC_DIR}, ${SRC_BASE_LIST}}
+WRITE_SRC_LST	=	${SRC_BASE_LIST} 11.c 12.c 13.c
+WRITE_SRC		=	${addprefix ${WRITE_SRC_DIR}, ${WRITE_SRC_LST}}
 
 # READ
 READ_SRC_DIR	=	read/
