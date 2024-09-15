@@ -1,8 +1,8 @@
 
 # LeadWasp
 
-A libasm tester for 42 student struggling to find asm lover to help them
-
+A libasm tester for 42 student struggling to find asm lover to help them 
+Now based on [libunit](https://github.com/titi-rex/libunit)
 
 ## Installation
 
@@ -17,6 +17,7 @@ A libasm tester for 42 student struggling to find asm lover to help them
 
 ```
 You can clone the repo where you want, just make sure to set the good path in alias (*should be automatic if you follow Installation*)
+
 ## Usage
 You are provided with two alias :  use `lw` inside your project repo or `leadwasp` with `-l path/to/libasm.a` 
 
@@ -34,11 +35,11 @@ Flags :
 - `-p` specify tester location (*default: automatically set in alias* `lw/leadwasp`) 
 - `-l` specify library location (*default:* `../`)
 - `-n` specify library name (*default:* `libasm.a`)
-- `-k` launch test with valgrind
+- `-k` launch test with valgrind (wip)
 - `-v` verbose
+- `-q` quit (wip)
+- `-c` clear obj and exe files
 - `-h` show help
-
-
 
 ## License
 
