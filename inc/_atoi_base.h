@@ -1,19 +1,15 @@
 #ifndef __READ_H_
 # define __READ_H_
-# include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
-#include <stdio.h>
+
 # include "libasm.h"
 
 # define BASE_BIN "01"
 # define BASE_DEC "0123456789"
 # define BASE_OCTA "01234567"
 # define BASE_HEXA "0123456789abcdef"
-
 # define BASE_OCTA_STR "poneyvif"
-# define BASE_7 "suix54"
-# define BASE_5 "142sa"
 
 # define BAD_BASE_SPACE1 " 01245"
 # define BAD_BASE_SPACE2 "012 45"

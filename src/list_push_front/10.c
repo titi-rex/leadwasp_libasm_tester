@@ -1,13 +1,13 @@
 #include "_list_push_front.h"
 
-int	list_push_front_09(void)
+int	list_push_front_10(void)
 {
 	char	*data1 = "hello beautiful garden";
-	char	*data2 = "awfawf!!!";
-	char	*data3 = "what a nice night!!!";
-	char	*data4 = "fgzxsegzsegsnight!!!";
-	char	*data5 = "5z634fesz5fs";
-	char	*data6 = "si;efjp938yrf;owa!";
+	char	*data2 = "what a nice night!!!";
+	char	*data3 = "whawtwtght!!!";
+	char	*data4 = "wt3w3tnight!!!";
+	char	*data5 = "wuyjmyuknice night!!!";
+	char	*data6 = "yukyukuyight!!!";
 	t_list	*list = NULL;
 
 	ft_list_push_front(&list, (void*)data6);
@@ -16,10 +16,10 @@ int	list_push_front_09(void)
 	ft_list_push_front(&list, (void*)data3);
 	ft_list_push_front(&list, (void*)data2);
 	ft_list_push_front(&list, (void*)data1);
-	int res = strcmp(data5, list->next->next->next->next->data);
+	void* res = list->next->next->next->next->next->next;
 	_listclear(&list);
 
-	if (res == 0)
+	if (res == NULL)
 		return (0);
 	else
 		return (-1);
