@@ -28,7 +28,11 @@ READ_SRC		=	${addprefix ${READ_SRC_DIR}, ${SRC_BASE_LIST}}
 
 # ATOI_BASE
 ATOI_BASE_SRC_DIR	=	atoi_base/
-ATOI_BASE_SRC_LST	=	${SRC_BASE_LIST}
+ATOI_BASE_SRC_LST	=	${SRC_BASE_LIST} \
+						${SRC_EXPAND_LST} \
+						21.c 22.c 23.c 24.c 25.c 26.c 27.c 28.c 29.c \
+						30.c 31.c 32.c 33.c 34.c 35.c 36.c 37.c 38.c 39.c \
+						utils.c 
 ATOI_BASE_SRC		=	${addprefix ${ATOI_BASE_SRC_DIR}, ${ATOI_BASE_SRC_LST}}
 
 # LIST_SIZE

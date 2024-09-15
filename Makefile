@@ -33,8 +33,8 @@ SRC_FILE		=	src.mk
 SRC_LST			=	main.c \
 					${STRLEN_SRC} ${STRCPY_SRC} ${STRCMP_SRC} ${STRDUP_SRC} ${WRITE_SRC} ${READ_SRC}
 
-SRC_BONUS_LST	=	main.c \
-					${ATOI_BASE_SRC} ${LIST_SIZE_SRC} ${LIST_SORT_SRC} ${LIST_REMOVE_IF_SRC} ${LIST_PUSH_FRONT_SRC}
+SRC_BONUS_LST	=	main_bonus.c \
+					${ATOI_BASE_SRC} #${LIST_SIZE_SRC} ${LIST_SORT_SRC} ${LIST_REMOVE_IF_SRC} ${LIST_PUSH_FRONT_SRC}
 
 SRC				= ${addprefix ${SRC_DIR}, ${SRC_LST}}
 SRC_BONUS		= ${addprefix ${SRC_DIR}, ${SRC_BONUS_LST}}
@@ -88,7 +88,7 @@ clean:
 	@rm -rf ${OBJ_DIR}
 
 fclean: clean
-	@rm -f ${NAME}
+	@rm -f ${NAME} ${NAME_BONUS}
 
 re: fclean all
 
@@ -101,7 +101,7 @@ ${NAME_BONUS}: ${LIBUNIT} ${OBJ_SUBDIR} ${OBJ_BONUS}
 	${CC} ${IFLAGS} ${CFLAGS} ${OBJ_BONUS} ${LIBUNIT} ${LIBASM} -o $@
 
 ${OBJ_DIR}%.o: %.c 
-	@${CC} ${IFLAGS} ${CFLAGS} ${DFLAG} -c $< -o $@
+	${CC} ${IFLAGS} ${CFLAGS} ${DFLAG} -c $< -o $@
 
 ${LIBUNIT}:
 	make -C ${DIR_LIBUNIT}

@@ -16,7 +16,9 @@
 # include "libasm.h"
 
 # define N_LAUNCHER 6
+# define N_LAUNCHER_BONUS 1
 
+// mandatory
 int	strlen_00_launcher(void);
 int	strcpy_00_launcher(void);
 int	strcmp_00_launcher(void);
@@ -25,20 +27,11 @@ int	write_00_launcher(void);
 int	read_00_launcher(void);
 
 
-
+// bonus
 int	atoi_base_00_launcher(void);
-int	atoi_base_01(void);
-int	atoi_base_02(void);
-int	atoi_base_03(void);
-int	atoi_base_04(void);
-int	atoi_base_05(void);
-int	atoi_base_06(void);
-int	atoi_base_07(void);
-int	atoi_base_08(void);
-int	atoi_base_09(void);
-int	atoi_base_10(void);
-
 int	list_push_front_00_launcher(void);
+
+
 int	list_push_front_01(void);
 int	list_push_front_02(void);
 int	list_push_front_03(void);
