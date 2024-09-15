@@ -6,9 +6,10 @@
 
 
 #	==============================	NAME	==============================	#
-NAME		=	leadwasp.out
+NAME		=	leadwasp
+NAME_BONUS	=	leadwasp_bonus
 DIR_LIBUNIT	=	external/libunit/libunit
-
+FLAVOUR		=	mandatory
 
 #	==============================	CMP	==============================	#
 CC			=	gcc
@@ -31,10 +32,14 @@ SRC_FILE		=	src.mk
 
 SRC_LST			=	main.c \
 					${STRLEN_SRC} ${STRCPY_SRC} ${STRCMP_SRC} ${STRDUP_SRC} ${WRITE_SRC} ${READ_SRC}
-SRC_BONUS_LST	=	${ATOI_BASE_SRC} ${LIST_SIZE_SRC} ${LIST_SORT_SRC} ${LIST_REMOVE_IF_SRC} ${LIST_PUSH_FRONT_SRC}
+
+SRC_BONUS_LST	=	main.c \
+					${ATOI_BASE_SRC} ${LIST_SIZE_SRC} ${LIST_SORT_SRC} ${LIST_REMOVE_IF_SRC} ${LIST_PUSH_FRONT_SRC}
 
 SRC				= ${addprefix ${SRC_DIR}, ${SRC_LST}}
 SRC_BONUS		= ${addprefix ${SRC_DIR}, ${SRC_BONUS_LST}}
+
+# if $FLAVOUR
 
 
 #	==============================	OBJ	==============================	#
@@ -42,7 +47,9 @@ OBJ_DIR		=	.obj/
 OBJ_SUBDIR	=	${addprefix ${OBJ_DIR}, ${SRC_SUBDIR}}
 
 OBJ_TMP		=	${addprefix ${OBJ_DIR}, ${SRC}}
+OBJ_TMP_B	=	${addprefix ${OBJ_DIR}, ${SRC_BONUS}}
 OBJ			=	${OBJ_TMP:.c=.o}
+OBJ_BONUS	=	${OBJ_TMP_B:.c=.o}
 
 DEPS		=	${OBJ:.o=.d}
 
@@ -54,37 +61,47 @@ LIBASM		=	libasm.a
 
 
 #	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	RULES	/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\/*\	#
-.PHONY: all clean fclean
+.PHONY: mandatory bonus all m b a clean fclean
 
 #	==============================	BASE	==============================	#
-all: ${NAME}
+mandatory:	${NAME}
+m:	mandatory
+
+bonus:	${NAME_BONUS}
+b:	bonus
+
+all: mandatory bonus
+a:	all
+
+
+strlen:	mandatory
+strcpy:	mandatory
+strcmp:	mandatory
+strdup:	mandatory
+read:	mandatory
+write:	mandatory
+
+atoi_base:			bonus
+list_size:			bonus
+list_push_front:	bonus
+list_sort:			bonus
+list_remove_if:		bonus
 
 clean:
 	@rm -rf ${OBJ_DIR}
-	@echo "Clean"
 
 fclean: clean
 	@rm -f ${NAME}
-	@echo "FClean"
 
 re: fclean all
-
-test:	${NAME}
-	@./${NAME}
-
-# m:	mandatory
-# b:	bonus
-# a:	lla
-
-# mandatory:
-# bonus:
-# lla:
-
 
 
 #	==============================	COMPILATION	==============================	#
 ${NAME}: ${LIBUNIT} ${OBJ_SUBDIR} ${OBJ}
-	@${CC} ${IFLAGS} ${CFLAGS} ${OBJ} ${LIBUNIT} ${LIBASM} -o $@
+	${CC} ${IFLAGS} ${CFLAGS} ${OBJ} ${LIBUNIT} ${LIBASM} -o $@
+
+${NAME_BONUS}: ${LIBUNIT} ${OBJ_SUBDIR} ${OBJ_BONUS}
+	${CC} ${IFLAGS} ${CFLAGS} ${OBJ_BONUS} ${LIBUNIT} ${LIBASM} -o $@
 
 ${OBJ_DIR}%.o: %.c 
 	@${CC} ${IFLAGS} ${CFLAGS} ${DFLAG} -c $< -o $@
