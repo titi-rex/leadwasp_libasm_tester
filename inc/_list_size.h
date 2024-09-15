@@ -6,6 +6,9 @@
 
 # include "libasm.h"
 
+void	_listclear(t_list **list);
+void	_list_push_front(t_list **begin_list, void *data);
+
 int	list_size_01(void);
 int	list_size_02(void);
 int	list_size_03(void);

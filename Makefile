@@ -33,8 +33,8 @@ SRC_FILE		=	src.mk
 SRC_LST			=	main.c \
 					${STRLEN_SRC} ${STRCPY_SRC} ${STRCMP_SRC} ${STRDUP_SRC} ${WRITE_SRC} ${READ_SRC}
 
-SRC_BONUS_LST	=	main_bonus.c \
-					${ATOI_BASE_SRC} ${LIST_PUSH_FRONT_SRC} #${LIST_SIZE_SRC} ${LIST_SORT_SRC} ${LIST_REMOVE_IF_SRC} 
+SRC_BONUS_LST	=	main_bonus.c list_utils.c \
+					${ATOI_BASE_SRC} ${LIST_PUSH_FRONT_SRC} ${LIST_REMOVE_IF_SRC} #${LIST_SIZE_SRC} ${LIST_SORT_SRC} 
 
 SRC				= ${addprefix ${SRC_DIR}, ${SRC_LST}}
 SRC_BONUS		= ${addprefix ${SRC_DIR}, ${SRC_BONUS_LST}}

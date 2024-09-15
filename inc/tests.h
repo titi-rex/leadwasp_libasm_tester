@@ -1,7 +1,7 @@
 #ifndef TESTS_H
 # define TESTS_H
 // # include <unistd.h>
-// # include <stdlib.h>
+# include <stdlib.h>
 // # include <string.h>
 // # include <stdio.h>
 // # include <stdint.h>
@@ -16,7 +16,7 @@
 # include "libasm.h"
 
 # define N_LAUNCHER 6
-# define N_LAUNCHER_BONUS 2
+# define N_LAUNCHER_BONUS 3
 
 // mandatory
 int	strlen_00_launcher(void);

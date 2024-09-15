@@ -2,8 +2,7 @@
 
 extern int g_ff_access;
 
-
-int	list_remove_if_04(void)
+int	list_remove_if_10(void)
 {
 	t_list	*list = NULL;
 
@@ -12,10 +11,10 @@ int	list_remove_if_04(void)
 	{
 		_list_push_front(&list, (void*)i);
 	}
-	ft_list_remove_if(&list, (void*)7, _cmp_equ, _fake_free);
+	ft_list_remove_if(&list, (void*)5, _cmp_mod, _fake_free);
 	_listclear(&list);
 
-	if (g_ff_access == 1)
+	if (g_ff_access == 5)
 		return (0);
 	else
 		return (-1);

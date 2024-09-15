@@ -1,6 +1,6 @@
 #include "_list_sort.h"
 
-int	list_sort_04(void)
+int	list_sort_10(void)
 {
 	if ( )
 		return (0);

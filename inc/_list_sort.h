@@ -3,8 +3,12 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 # include "libasm.h"
+
+void	_listclear(t_list **list);
+void	_list_push_front(t_list **begin_list, void *data);
 
 int	list_sort_01(void);
 int	list_sort_02(void);
