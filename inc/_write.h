@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <signal.h>
 
 # include "libasm.h"
 
@@ -22,5 +23,12 @@ int	write_10(void);
 int	write_11(void);
 int	write_12(void);
 int	write_13(void);
+int	write_14(void);
+int	write_15(void);
+int	write_16(void);
+int	write_17(void);
+int	write_18(void);
+int	write_19(void);
+int	write_20(void);
 
 #endif

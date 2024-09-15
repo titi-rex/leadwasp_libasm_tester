@@ -11,10 +11,10 @@ int	write_06(void)
 	if (!exp || !got)
 		return (-2);
 
-	write(1, str, len);
+	write(STDOUT_FILENO, str, len);
 	read(1, exp, len);
 	
-	ft_write(1, str, len);
+	ft_write(STDOUT_FILENO, str, len);
 	read(1, got, len);
 
 	int	ret = strncmp(exp, got, len);

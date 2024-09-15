@@ -1,4 +1,5 @@
 SRC_BASE_LIST	=	00.c 01.c 02.c 03.c 04.c 05.c 06.c 07.c 08.c 09.c 10.c
+SRC_EXPAND_LST	=	11.c 12.c 13.c 14.c 15.c 16.c 17.c 18.c 19.c 20.c
 
 # STRLEN
 STRLEN_SRC_DIR	=	strlen/
@@ -18,7 +19,7 @@ STRDUP_SRC		=	${addprefix ${STRDUP_SRC_DIR}, ${SRC_BASE_LIST}}
 
 # WRITE
 WRITE_SRC_DIR	=	write/
-WRITE_SRC_LST	=	${SRC_BASE_LIST} 11.c 12.c 13.c
+WRITE_SRC_LST	=	${SRC_BASE_LIST} 11.c 12.c 13.c 14.c 15.c 16.c
 WRITE_SRC		=	${addprefix ${WRITE_SRC_DIR}, ${WRITE_SRC_LST}}
 
 # READ

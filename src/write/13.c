@@ -2,8 +2,8 @@
 
 int	write_13(void)
 {
-	const char	*str = "";
-	size_t		len = strlen(str);
+	const char	*str = NULL;
+	size_t		len = 1;
 	ssize_t		r_exp = write(1, str, len);
 	ssize_t		r_got = ft_write(1, str, len);
 
