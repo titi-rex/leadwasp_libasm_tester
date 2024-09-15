@@ -12,10 +12,10 @@ int	write_06(void)
 		return (-2);
 
 	write(STDOUT_FILENO, str, len);
-	read(1, exp, len);
+	read(STDIN_FILENO, exp, len);
 	
 	ft_write(STDOUT_FILENO, str, len);
-	read(1, got, len);
+	read(STDIN_FILENO, got, len);
 
 	int	ret = strncmp(exp, got, len);
 

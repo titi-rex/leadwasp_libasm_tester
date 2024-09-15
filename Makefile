@@ -30,7 +30,7 @@ SRC_FILE		=	src.mk
 -include ${SRC_FILE}
 
 SRC_LST			=	main.c \
-					${STRLEN_SRC} ${STRCPY_SRC} ${STRCMP_SRC} ${STRDUP_SRC} ${WRITE_SRC} #${READ_SRC}
+					${STRLEN_SRC} ${STRCPY_SRC} ${STRCMP_SRC} ${STRDUP_SRC} ${WRITE_SRC} ${READ_SRC}
 SRC_BONUS_LST	=	${ATOI_BASE_SRC} ${LIST_SIZE_SRC} ${LIST_SORT_SRC} ${LIST_REMOVE_IF_SRC} ${LIST_PUSH_FRONT_SRC}
 
 SRC				= ${addprefix ${SRC_DIR}, ${SRC_LST}}
@@ -84,10 +84,10 @@ test:	${NAME}
 
 #	==============================	COMPILATION	==============================	#
 ${NAME}: ${LIBUNIT} ${OBJ_SUBDIR} ${OBJ}
-	${CC} ${IFLAGS} ${CFLAGS} ${OBJ} ${LIBUNIT} ${LIBASM} -o $@
+	@${CC} ${IFLAGS} ${CFLAGS} ${OBJ} ${LIBUNIT} ${LIBASM} -o $@
 
 ${OBJ_DIR}%.o: %.c 
-	${CC} ${IFLAGS} ${CFLAGS} ${DFLAG} -c $< -o $@
+	@${CC} ${IFLAGS} ${CFLAGS} ${DFLAG} -c $< -o $@
 
 ${LIBUNIT}:
 	make -C ${DIR_LIBUNIT}

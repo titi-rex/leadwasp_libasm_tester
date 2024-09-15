@@ -15,7 +15,7 @@
 
 # include "libasm.h"
 
-# define N_LAUNCHER 5
+# define N_LAUNCHER 6
 
 int	strlen_00_launcher(void);
 int	strcpy_00_launcher(void);
