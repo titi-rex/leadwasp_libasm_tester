@@ -9,7 +9,7 @@
 NAME		=	leadwasp
 NAME_BONUS	=	leadwasp_bonus
 DIR_LIBUNIT	=	external/libunit/libunit
-FLAVOUR		=	mandatory
+
 
 #	==============================	CMP	==============================	#
 CC			=	gcc
@@ -39,8 +39,6 @@ SRC_BONUS_LST	=	main.c \
 SRC				= ${addprefix ${SRC_DIR}, ${SRC_LST}}
 SRC_BONUS		= ${addprefix ${SRC_DIR}, ${SRC_BONUS_LST}}
 
-# if $FLAVOUR
-
 
 #	==============================	OBJ	==============================	#
 OBJ_DIR		=	.obj/
@@ -56,7 +54,7 @@ DEPS		=	${OBJ:.o=.d}
 
 #	==============================	LIB	==============================	#
 LIBUNIT		=	${DIR_LIBUNIT}/libunit.a
-LIBASM		=	libasm.a
+LIBASM		=	../libasm.a
 
 
 
@@ -72,7 +70,6 @@ b:	bonus
 
 all: mandatory bonus
 a:	all
-
 
 strlen:	mandatory
 strcpy:	mandatory

@@ -4,7 +4,7 @@
 # alias leadwasp="$(pwd)/script/leadwasp.sh -p $(pwd)"
 
 function maker () {
-    $MAKE $TEST_PATH LIB_PATH=$LIB_PATH LIB_NAME=$LIB_NAME $1
+    $MAKE $TEST_PATH LIBASM=$LIB_PATH/$LIB_NAME $1
 }
 
 
@@ -35,7 +35,7 @@ function help () {
 MAKE="make -s -C" 
 
 TEST_PATH=$(pwd)
-LIB_PATH="../"
+LIB_PATH=".."
 LIB_NAME="libasm.a"
 
 LIST_MANDATORY="strlen strcpy strcmp strdup read write"
