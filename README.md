@@ -7,12 +7,13 @@ Now based on [libunit](https://github.com/titi-rex/libunit)
 ## Installation
 
 
-
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/titi-rex/leadwasp_libasm_tester/main/script/install.sh)"
 
 ```
-You can clone the repo where you want, just make sure to set the good path in alias (*should be automatic if you follow Installation*)
+You can clone the repo where you want, the good path should be set automatically in alias (*if you followed Installation*)
+
+Dependencies : `make gcc`
 
 ## Usage
 You are provided with two alias :  use `lw` inside your project repo or `leadwasp` with `-l path/to/libasm.a` 
