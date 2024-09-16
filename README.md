@@ -6,14 +6,10 @@ Now based on [libunit](https://github.com/titi-rex/libunit)
 
 ## Installation
 
+
+
 ```bash
-  
- git clone git@github.com:titi-rex/leadwasp_libasm_tester.git leadwasp
- cd leadwasp
- alias lw="$(pwd)/script/leadwasp.sh -p $(pwd) -l \"\\\$(pwd)\""
- alias leadwasp="$(pwd)/script/leadwasp.sh -p $(pwd)"
- >> ~/.zshrc echo "alias lw=\"$(pwd)/script/leadwasp.sh -p $(pwd) -l \\\$(pwd)\""
- >> ~/.zshrc echo "alias leadwasp=\"$(pwd)/script/leadwasp.sh -p $(pwd)\""
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/titi-rex/leadwasp_libasm_tester/main/script/install.sh)"
 
 ```
 You can clone the repo where you want, just make sure to set the good path in alias (*should be automatic if you follow Installation*)
