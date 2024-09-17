@@ -6,7 +6,7 @@
 #    By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/04 21:12:50 by tlegrand          #+#    #+#              #
-#    Updated: 2024/09/10 22:45:52 by tlegrand         ###   ########.fr        #
+#    Updated: 2024/09/17 13:21:06 by tlegrand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,9 @@ all: ${OBJ_DIR} ${NAME}
 
 clean:
 	@rm -rf ${OBJ_DIR}
-	@echo "Clean"
 
 fclean: clean
 	@rm -f ${NAME}
-	@echo "FClean"
 
 re: fclean all
 
