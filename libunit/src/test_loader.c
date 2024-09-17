@@ -6,7 +6,7 @@
 /*   By: tlegrand <tlegrand@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 14:41:33 by tlegrand          #+#    #+#             */
-/*   Updated: 2024/09/11 15:04:30 by tlegrand         ###   ########.fr       */
+/*   Updated: 2024/09/17 13:18:11 by tlegrand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,26 @@
 
 int	g_max_len_size = 0;
 
-t_test	*create_node(char *test_name, t_test_func f, uint8_t flags)
+static size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+
+	i = 0;
+	if (dstsize)
+	{
+		while (i < dstsize - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = 0;
+	}
+	while (src[i])
+		i++;
+	return (i);
+}
+
+static t_test	*create_node(char *test_name, t_test_func f, uint8_t flags)
 {
 	t_test	*new;
 	int		len;
@@ -24,7 +43,7 @@ t_test	*create_node(char *test_name, t_test_func f, uint8_t flags)
 	if (new == NULL)
 		return (NULL);
 	bzero(new, sizeof(t_test));
-	if (strlcpy(new->name, test_name, NAME_MAX_LENGHT - 1) > NAME_MAX_LENGHT)
+	if (ft_strlcpy(new->name, test_name, NAME_MAX_LENGHT - 1) > NAME_MAX_LENGHT)
 		printf(YELLOW_L""ITALIC"WARNING: name too long -> truncated (%s)\n"END, new->name);
 	len = strlen(new->name);
 	if (len > g_max_len_size)
@@ -35,7 +54,7 @@ t_test	*create_node(char *test_name, t_test_func f, uint8_t flags)
 	return (new);
 }
 
-void	append_node(t_test **head, t_test *node)
+static void	append_node(t_test **head, t_test *node)
 {
 	t_test	*current;
 
